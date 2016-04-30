@@ -1,0 +1,25 @@
+{
+  "name": "hello-world",
+  "version": "1.0.0",
+  "description": "For testing purpose.",
+  "main": "index.html",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivan8i/hello-world.git"
+  },
+  "keywords": [
+    "gulp",
+    "sass",
+    "css"
+  ],
+  "author": "Ivan Yew",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ivan8i/hello-world/issues"
+  },
+  "homepage": "https://github.com/ivan8i/hello-world#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.1"
+  }
+}
