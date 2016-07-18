@@ -1,17 +1,24 @@
-/****************************************************************
- *  Powered by GongKia.com
- *  Author : Ivan Yew           Email    : ivaneyew@gmail.com
- *  URL    : ivan.gongkia.com   Facebook : fb.me/ivan8i
- *  Last Update : 2016/04/13 9:48pm
- ****************************************************************/
-
 body {
-  padding-top: 50px;
+  padding-top: 5rem;
 }
 
 .navbar {
   &-inverse {
     margin-bottom: 0;
     border-bottom: 0;
+  }
+}
+
+/// Main content
+.main {
+  &-content {
+    margin-top: 2.5rem;
+    .jumbotron {
+      background-color: #e5e8ea;
+      h2 {
+        margin-top: 0;
+        font-size: 2.8rem;
+      }
+    }
   }
 }
