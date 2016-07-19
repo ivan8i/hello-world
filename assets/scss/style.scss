@@ -1,11 +1,19 @@
+@import "include/variables";
+
 body {
   padding-top: 5rem;
 }
 
+/// Navbar
 .navbar {
+  /// Navbar Inverse
   &-inverse {
     margin-bottom: 0;
     border-bottom: 0;
+  }
+  /// Navbar Custom
+  &-custom {
+    background-color: $navbar-custom-bg;
   }
 }
 
