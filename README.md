@@ -1,8 +1,7 @@
 # Hello World
 My first repository
 
-    Cheesy feet boursin red leicester. Fromage frais cheesecake pepper jack edam cheddar cheddar boursin say cheese.
-    Paneer everyone loves goat cheese strings squirty cheese cheeseburger manchego cheese strings. 
+    This is for testing purpose only, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora nesciunt quia, reprehenderit impedit dolore sed doloremque itaque odit? Repellat fugiat repudiandae suscipit illo fuga ipsam architecto cupiditate dolore distinctio tempora.
 
   - Bocconcini cheese 
   - Strings cheese 
