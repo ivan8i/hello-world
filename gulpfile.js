@@ -1,12 +1,12 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var header = require('gulp-header');
-var sourcemaps = require('gulp-sourcemaps');
-var autoprefixer = require('gulp-autoprefixer');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var sassdoc = require('sassdoc');
-var pkg = require('./package.json');
+var gulp          = require('gulp'),
+    sass          = require('gulp-sass'),
+    header        = require('gulp-header'),
+    sourcemaps    = require('gulp-sourcemaps'),
+    autoprefixer  = require('gulp-autoprefixer'),
+    concat        = require('gulp-concat'),
+    uglify        = require('gulp-uglify'),
+    sassdoc       = require('sassdoc'),
+    pkg           = require('./package.json');
 
 var banner = ['/*!\n',
     ' * GongKia - <%= pkg.title %> v<%= pkg.version %> (<%= pkg.homepage %>)\n',
@@ -58,10 +58,9 @@ gulp.task('sassdoc', function() {
     .resume();
 });
 
-// Default
-gulp.task('default', ['scss']);
-
+//----------------------------------------
 // Watch
+//----------------------------------------
 gulp.task('watch', function() {
   return gulp
     .watch(input, ['scss'])
@@ -70,7 +69,9 @@ gulp.task('watch', function() {
     });
 });
 
+//----------------------------------------
 // Production
+//----------------------------------------
 gulp.task('prod', function() {
   return gulp
     .src(input)
@@ -78,3 +79,8 @@ gulp.task('prod', function() {
     .pipe(autoprefixer(autoprefixerOptions))
     .pipe(gulp.dest(output));
 });
+
+//----------------------------------------
+// Default
+//----------------------------------------
+gulp.task('default', ['scss']);
