@@ -1,0 +1,65 @@
+{
+  "html": {
+    "input": "./dist/**/*.html"
+  },
+  "scss": {
+    "input": "./src/scss/**/*.scss",
+    "output": "./dist/assets/css",
+    "options": {
+      "errLogToConsole": true,
+      "outputStyle": "expanded",
+      "includePaths": [
+        "./node_modules/bootstrap/scss",
+        "./node_modules/@fortawesome/fontawesome-free/scss"
+      ]
+    }
+  },
+  "js": {
+    "input": "./src/js/**/*.js",
+    "output": "./dist/assets/js",
+    "exclude": []
+  },
+  "fonts": {
+    "input": [
+      "./node_modules/@fortawesome/fontawesome-free/webfonts/*"
+    ],
+    "output": "./dist/assets/fonts"
+  },
+  "vendor": {
+    "note": "add your vendor files here",
+    "input": {
+      "css": [
+        "./node_modules/bootstrap/dist/css/bootstrap.css"
+      ],
+      "js": [
+        "./node_modules/jquery/dist/jquery.js",
+        "./node_modules/popper.js/dist/umd/popper.js",
+        "./node_modules/bootstrap/dist/js/bootstrap.js",
+        "./node_modules/feather-icons/dist/feather.js"
+      ] 
+    },
+    "output": "./dist/assets/vendor"
+  },
+  "clean": {
+    "dev": [
+      "./dist/assets/css",
+      "./dist/assets/fonts",
+      "./dist/assets/js",
+      "./dist/assets/vendor",
+      "!./dist/assets/**/*.min.*"
+    ],
+    "rebuild": [
+      "./dist/assets/css",
+      "./dist/assets/fonts",
+      "./dist/assets/js",
+      "./dist/assets/vendor"
+    ]
+  },
+  "babel": {
+    "presets": [
+      ["@babel/env", {
+        "modules": false
+      }]
+    ]
+  }
+}

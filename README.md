@@ -1,12 +1,38 @@
 # Hello World
-My first repository
 
-    This is for testing purpose only, Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-    Tempora nesciunt quia, reprehenderit impedit dolore sed doloremque itaque odit? 
-    Repellat fugiat repudiandae suscipit illo fuga ipsam architecto cupiditate dolore distinctio tempora.
+    This is for testing purpose only
 
-  - Bocconcini cheese 
-  - Strings cheese 
-  - Biscuits.
+### 📦 Dependency
+  - jQuery `3.4.1`
+  - Bootstrap `4.3.1 `
+  - Animate.css `3.7.2`
+  - FontAwesome `5.11.2`
+  - Feather Icons `4.24.1`
 
-## Let's make it fun
+### 🧰 Requirement
+  - Node / NPM
+  - Yarn (Optional)
+
+```bash
+> npm install -g gulp-cli
+```
+
+### 📐 Installation
+```bash
+> cd ~/path/to/project
+> npm install
+# or
+> yarn install
+```
+
+### 🔍 Usage
+```bash
+# Start Development
+> yarn start
+
+# Rebuild
+> yarn rebuild
+
+# Production
+> yarn production
+```

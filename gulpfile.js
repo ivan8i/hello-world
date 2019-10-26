@@ -1,86 +1,171 @@
-var gulp          = require('gulp'),
-    sass          = require('gulp-sass'),
-    header        = require('gulp-header'),
-    sourcemaps    = require('gulp-sourcemaps'),
-    autoprefixer  = require('gulp-autoprefixer'),
-    concat        = require('gulp-concat'),
-    uglify        = require('gulp-uglify'),
-    sassdoc       = require('sassdoc'),
-    pkg           = require('./package.json');
+// #region Constant ---------------------------------------
+const { src, dest, watch, series, parallel } = require('gulp'),
+  sass          = require('gulp-sass'),
+  header        = require('gulp-header'),
+  sourcemaps    = require('gulp-sourcemaps'),
+  autoprefixer  = require('gulp-autoprefixer'),
+  concat        = require('gulp-concat'),
+  uglify        = require('gulp-uglify'),
+  cleancss      = require('gulp-clean-css'),
+  rename        = require('gulp-rename'),
+  filter        = require('gulp-filter'),
+  gulpif        = require('gulp-if'),
+  plumber       = require('gulp-plumber'),
+  clean         = require('gulp-clean'),
+  babel         = require('gulp-babel'),
+  bs            = require('browser-sync').create(),
+  color         = require('ansi-colors'),
+  pkg           = require('./package.json'),
+  config        = require('./config.json');
+const { format } = require('date-fns');
+// #endregion ---------------------------------------------
 
-var banner = ['/*!\n',
-    ' * GongKia - <%= pkg.title %> v<%= pkg.version %> (<%= pkg.homepage %>)\n',
-    ' * Copyright 2013-' + (new Date()).getFullYear(), ' <%= pkg.author %>\n',
-    ' * Licensed under <%= pkg.license.type %> (<%= pkg.license.url %>)\n',
-    ' */\n',
-    ''
-].join('');
+// #region Config -----------------------------------------
+const environment = process.env.NODE_ENV !== 'production' ? true : false
+console.log('env', environment ? 'development' : 'production')
+const banner = [`/*!
+  * GongKia - ${pkg.title} v${pkg.version} (${pkg.homepage})
+  * Copyright 2013-${(new Date()).getFullYear()}, ${pkg.author}
+  * Licensed under ${pkg.license} (${pkg.homepage}/license)
+  */
+`].join('');
+// #endregion ---------------------------------------------
 
+// #region Sources ----------------------------------------
+const scss = () =>
+  src(gulpif(environment, config.scss.input, config.scss.input.concat(config.scss.exclude)))
+    .pipe(filter(file => !/\/\_/.test(file.path) || !/^_/.test(file.relative)))
+    .pipe(header(banner, { pkg }))
+    .pipe(gulpif(environment, sourcemaps.init()))
+    .pipe(sass(config.scss.options).on('error', sass.logError))
+    .pipe(autoprefixer())
+    .pipe(gulpif(environment, sourcemaps.write('./')))
+    .pipe(dest(config.scss.output));
 
-var input = './assets/scss/**/*.scss';
-var output = './assets/css/';
+const script = () =>
+  src(gulpif(environment, config.js.input, config.js.input.concat(config.js.exclude)))
+    .pipe(gulpif(environment, sourcemaps.init()))
+    .pipe(plumber())
+    .pipe(concat('common.js'))
+    .pipe(babel(config.babel))
+    .pipe(header(banner, { pkg }))
+    .pipe(gulpif(environment, sourcemaps.write('./')))
+    .pipe(dest(config.js.output));
+// #endregion ---------------------------------------------
 
-var sassOptions = {
-  errLogToConsole: true,
-  outputStyle: 'expanded'
-};
+// #region Minify -----------------------------------------
+const minifyCSS = () => 
+  src(config.scss.input)
+    .pipe(sass(config.scss.options).on('error', sass.logError))
+    .pipe(autoprefixer())
+    .pipe(cleancss())
+    .pipe(header(banner, { pkg }))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(dest(config.scss.output))
 
-var autoprefixerOptions = {
-  browsers: ['last 2 versions', '> 5%', 'Firefox ESR']
-};
+const minifyJS = () => 
+  src(config.js.input)
+    .pipe(plumber())
+    .pipe(concat('common.js'))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(babel(config.babel))
+    .pipe(uglify())
+    .pipe(header(banner, { pkg }))
+    .pipe(dest(config.js.output))
 
-var sassdocOptions = {
-  dest: './sassdoc'
-};
+// #endregion ---------------------------------------------
 
-gulp.task('scss', function() {
-  return gulp
-    .src(input)
-    .pipe(header(banner, { pkg: pkg }))
-    .pipe(sourcemaps.init())
-    .pipe(sass(sassOptions).on('error', sass.logError))
-    .pipe(autoprefixer(autoprefixerOptions))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest(output));
-});
+// #region Vendor -----------------------------------------
+const vendorCSS = () =>
+  src(config.vendor.input.css)
+    .pipe(concat('vendor.css'))
+    .pipe(header(banner, { pkg }))
+    .pipe(dest(config.vendor.output))
 
-gulp.task('script', function() {
-  return gulp
-    .src('./assets/js/*.js')
-    .pipe(concat('bundle.js'))
-    .pipe(gulp.dest('./dist/'));
-});
+const vendorJS = () =>
+  src(config.vendor.input.js)
+    .pipe(concat('vendor.js'))
+    .pipe(header(banner, { pkg }))
+    .pipe(dest(config.vendor.output))
 
-gulp.task('sassdoc', function() {
-  return gulp
-    .src(input)
-    .pipe(sassdoc(sassdocOptions))
-    .resume();
-});
+const vendorCSSMinify = () =>
+  src(config.vendor.input.css)
+    .pipe(concat('vendor.css'))
+    .pipe(cleancss())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(header(banner, { pkg }))
+    .pipe(dest(config.vendor.output))
 
-//----------------------------------------
-// Watch
-//----------------------------------------
-gulp.task('watch', function() {
-  return gulp
-    .watch(input, ['scss'])
-    .on('change', function(event) {
-      console.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-    });
-});
+const vendorJSMinify = () =>
+  src(config.vendor.input.js)
+    .pipe(concat('vendor.js'))
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(uglify())
+    .pipe(header(banner, { pkg }))
+    .pipe(dest(config.vendor.output))
 
-//----------------------------------------
-// Production
-//----------------------------------------
-gulp.task('prod', function() {
-  return gulp
-    .src(input)
-    .pipe(sass({ outputStyle: 'compressed' }))
-    .pipe(autoprefixer(autoprefixerOptions))
-    .pipe(gulp.dest(output));
-});
+const vendorFont = () =>
+  src(config.fonts.input)
+    .pipe(dest(config.fonts.output))
+// #endregion ---------------------------------------------
 
-//----------------------------------------
-// Default
-//----------------------------------------
-gulp.task('default', ['scss']);
+// #region Clean ------------------------------------------
+const cleanIt = cb => 
+  src(config.clean.dev, { read: false })
+    .pipe(clean())
+const rebuildIt = cb =>
+  src(config.clean.rebuild, { read: false })
+    .pipe(clean())
+// #endregion ---------------------------------------------
+
+// #region Browser Sync -----------------------------------
+const browserSync = done => {
+  bs.init({
+    server: {
+      baseDir: './dist'
+    },
+    notify: false,
+    open: false
+  })
+  done()
+}
+const browserSyncReload = done => {
+  bs.reload()
+  done()
+}
+// #endregion ---------------------------------------------
+
+// #region Watch ------------------------------------------
+const setWatch = cb => {
+  global.isWatching = true
+}
+const Watch = cb => {
+  let dt = (path, stats) =>
+    console.log(
+      `[${color.gray(format(stats.mtime, 'HH:mm:ss'))}]`,
+      `File '${color.cyan(path)}' was changed, running tasks...`
+    )
+  watch(config.html.input, browserSyncReload)
+    .on('change', (path, stats) => dt(path, stats))
+  watch(config.scss.input, series(scss, browserSyncReload))
+    .on('change', (path, stats) => dt(path, stats))
+  watch(config.js.input, series(script, browserSyncReload))
+    .on('change', (path, stats) => dt(path, stats))
+}
+// #endregion ---------------------------------------------
+
+// #region Define complex tasks ---------------------------
+const source = parallel(scss, script)
+const vendor = parallel(vendorCSS, vendorJS, vendorFont)
+const minify = parallel(minifyCSS, minifyJS, vendorCSSMinify, vendorJSMinify)
+const init = series(source, vendor)
+const rebuild = series(rebuildIt, init)
+const prod = series(cleanIt, vendorFont, minify)
+// #endregion ---------------------------------------------
+
+// #region Export Tasks -----------------------------------
+exports.init = init
+exports.rebuild = rebuild
+exports.default = series(browserSync, Watch)
+exports.prod = prod
+// #endregion ---------------------------------------------

@@ -1,0 +1,81 @@
+//------------------------------//
+// Header
+//------------------------------//
+.header {
+  background-color: $navbar-custom-bg;
+  .navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    img {
+      width: 40px;
+      height: 40px;
+      margin-right: 15px;
+    }
+  }
+  // Dropdown
+  .dropdown-menu {
+    min-width: 22rem;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border: 1px solid rgba(white, 0.25);
+    background-color: rgba(white, 0.15);
+    backdrop-filter: blur(0.35rem);
+    right: 0;
+    left: auto;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 0.5rem -0.3125rem rgba(black, 0.25), 0 1rem 2rem -0.25rem rgba(black, 0.1);
+  }
+  // List Group
+  .list-group {
+    &-flush {
+      .list-group {
+        &-item {
+          display: flex;
+          padding-top: 1.25rem;
+          padding-bottom: 1.25rem;
+          border-top-color: rgba(white, 0.05);
+          border-bottom-color: rgba(white, 0.05);
+          background-color: transparent;
+          color: rgba(white, 0.9);
+          text-decoration: none;
+          transition: background 200ms ease-in-out;
+          &:first-child {
+            border-top-left-radius: 0.6875rem;
+            border-top-right-radius: 0.6875rem;
+          }
+          &:last-child {
+            border-bottom-left-radius: 0.6875rem;
+            border-bottom-right-radius: 0.6875rem;
+          }
+          .info {
+            margin-left: 1.25rem;
+            h6 {
+              margin-bottom: 0;
+              color: rgba(white, 0.65);
+              font-size: 0.75rem;
+              font-weight: 300;
+              text-transform: uppercase;
+              letter-spacing: 0.085rem;
+            }
+            p {
+              margin-bottom: 0;
+              font-size: 0.9375rem;
+            }
+          }
+          .badge {
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-left: auto;
+            font-weight: normal;
+          }
+          &:hover {
+            background-color: rgba(white, 0.08);
+          }
+        }
+      }
+    }
+  }
+}

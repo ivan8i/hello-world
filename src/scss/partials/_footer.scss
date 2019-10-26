@@ -1,0 +1,19 @@
+//------------------------------//
+// Footer
+//------------------------------//
+.footer {
+  margin-top: auto;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  color: rgba(white, 0.5);
+  font-size: 0.8125rem;
+  &-link {
+    a {
+      color: inherit;
+      text-decoration: none;
+      &:hover {
+        color: rgba(white, 0.95);
+      }
+    }
+  }
+}
