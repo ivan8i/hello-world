@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/ivan8i/hello-world/issues"
   },
-  "homepage": "https://github.com/ivan8i/hello-world#readme",
+  "homepage": "https://github.com/ivan8i/hello-world",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.11.2",
     "animate.css": "^3.7.2",
@@ -52,7 +52,7 @@
   "scripts": {
     "postinstall": "gulp init",
     "start": "gulp",
-    "init": "gulp init",
+    "rebuild": "gulp rebuild",
     "build": "cross-env NODE_ENV=production gulp prod"
   },
   "browserslist": [

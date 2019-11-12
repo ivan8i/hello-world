@@ -1,7 +1,8 @@
 /*!
-  * GongKia - Hello World v1.0.0 (https://github.com/ivan8i/hello-world#readme)
-  * Copyright 2013-2019, Ivan Yew
-  * Licensed under https://github.com/ivan8i/hello-world#readme/license (MIT)
+  * Hello World v1.0.0 (https://github.com/ivan8i/hello-world)
+  * Copyright 2013-2019 GongKia
+  * Copyright 2013-2019 Ivan Yew
+  * Licensed under MIT (https://github.com/ivan8i/hello-world/blob/master/LICENSE)
   */
 /*!
  * jQuery JavaScript Library v3.4.1
