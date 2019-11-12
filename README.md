@@ -19,7 +19,8 @@
 
 ### 📐 Installation
 ```bash
-> cd ~/path/to/project
+> git clone https://github.com/ivan8i/hello-world.git
+> cd hello-world
 > npm install
 # or
 > yarn install
@@ -28,11 +29,17 @@
 ### 🔍 Usage
 ```bash
 # Start Development
+> npm start
+# or
 > yarn start
 
 # Rebuild
-> yarn rebuild
+> npm run rebuild
+# or
+> yarn run rebuild
 
 # Production
-> yarn production
+> npm run build
+# or
+> yarn run build
 ```
