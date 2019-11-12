@@ -24,9 +24,10 @@ const { format } = require('date-fns');
 const environment = process.env.NODE_ENV !== 'production' ? true : false
 console.log('env', environment ? 'development' : 'production')
 const banner = [`/*!
-  * GongKia - ${pkg.title} v${pkg.version} (${pkg.homepage})
-  * Copyright 2013-${(new Date()).getFullYear()}, ${pkg.author}
-  * Licensed under ${pkg.license} (${pkg.homepage}/license)
+  * ${pkg.title} v${pkg.version} (${pkg.homepage})
+  * Copyright 2013-${(new Date()).getFullYear()} GongKia
+  * Copyright 2013-${(new Date()).getFullYear()} ${pkg.author}
+  * Licensed under ${pkg.license} (${pkg.homepage}/blob/master/LICENSE)
   */
 `].join('');
 // #endregion ---------------------------------------------
@@ -125,7 +126,7 @@ const browserSync = done => {
       baseDir: './dist'
     },
     notify: false,
-    open: false
+    open: true
   })
   done()
 }
