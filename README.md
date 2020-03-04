@@ -4,10 +4,10 @@
 
 ### 📦 Dependency
   - jQuery `3.4.1`
-  - Bootstrap `4.3.1 `
+  - Bootstrap `4.4.1 `
   - Animate.css `3.7.2`
-  - FontAwesome `5.11.2`
-  - Feather Icons `4.24.1`
+  - FontAwesome `5.12.1`
+  - Feather Icons `4.26.0`
 
 ### 🧰 Requirement
   - Node / NPM
