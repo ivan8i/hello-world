@@ -25,8 +25,8 @@ const environment = process.env.NODE_ENV !== 'production' ? true : false
 console.log('env', environment ? 'development' : 'production')
 const banner = [`/*!
   * ${pkg.title} v${pkg.version} (${pkg.homepage})
-  * Copyright 2013-${(new Date()).getFullYear()} GongKia
   * Copyright 2013-${(new Date()).getFullYear()} ${pkg.author}
+  * Copyright 2013-${(new Date()).getFullYear()} GongKia
   * Licensed under ${pkg.license} (${pkg.homepage}/blob/master/LICENSE)
   */
 `].join('');
