@@ -1,6 +1,6 @@
 // #region Constant ---------------------------------------
 const { src, dest, watch, series, parallel } = require('gulp'),
-  sass          = require('gulp-sass'),
+  sass          = require('gulp-dart-sass'),
   header        = require('gulp-header'),
   sourcemaps    = require('gulp-sourcemaps'),
   autoprefixer  = require('gulp-autoprefixer'),
