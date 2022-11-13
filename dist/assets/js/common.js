@@ -1,20 +1,18 @@
 /*!
   * Hello World v1.0.0 (https://github.com/ivan8i/hello-world)
-  * Copyright 2013-2021 Ivan Yew
-  * Copyright 2013-2021 GongKia
+  * Copyright 2013-2022 Ivan Yew
+  * Copyright 2013-2022 GongKia
   * Licensed under MIT (https://github.com/ivan8i/hello-world/blob/master/LICENSE)
   */
-console.log('common'); // Feather Icons
-
+console.log('common');
+// Feather Icons
 feather.replace();
 console.log('custom');
-
 (function ($) {
   $('a').on('click', function (e) {
     e.preventDefault();
     console.log('clicked', $(this).attr('href'));
     var scrollOffset = 0;
-
     if ($(this).is('a[href^="#"]') && $(this).attr('href').length >= 2) {
       $('html, body').animate({
         scrollTop: $($.attr(this, 'href')).offset().top + scrollOffset
