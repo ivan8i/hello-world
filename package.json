@@ -23,7 +23,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
     "animate.css": "^4.1.1",
-    "bootstrap": "^4.6.2",
+    "bootstrap": "^5.0.0",
     "date-fns": "^2.30.0",
     "feather-icons": "^4.29.2",
     "jquery": "^3.7.1",
