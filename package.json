@@ -60,5 +60,6 @@
     "last 2 versions",
     "> 5%",
     "Firefox ESR"
-  ]
+  ],
+  "packageManager": "yarn@4.18.0"
 }
